@@ -41,10 +41,10 @@ extern ring_buffer *_tx_buffer2;
 
 int main(void) {
 	__disable_irq();
-	USART2_init();          				// initialize USART2
+	USART2_init();          		// initialize USART2
 	
-	GPIOA->MODER &= ~0x00000C00;    // clear pin mode
-  	GPIOA->MODER |=  0x00000400;    // set pin to output mode
+	GPIOA->MODER &= ~0x00000C00;    	// clear pin mode
+  	GPIOA->MODER |=  0x00000400;    	// set pin to output mode
 	
 	UART4_init(); 				// Initialize UART4 for ESP-01 data
 
