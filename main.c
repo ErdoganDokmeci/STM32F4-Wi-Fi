@@ -10,7 +10,7 @@
 #define MAIN_BUFFER_SIZE 	256
 
 char SSID[] = "XXXXXXXXXXXXXXXXXXXXX";			// Update this array (SSID)
-char PASSWD[] = "YYYYYYYYYYYY";							// Update this array (Password)
+char PASSWD[] = "YYYYYYYYYYYY";				// Update this array (Password)
 
 static uint16_t main_buffer_index = 0;
 uint8_t main_buffer[MAIN_BUFFER_SIZE] = {0};
@@ -44,20 +44,20 @@ int main(void) {
 	USART2_init();          				// initialize USART2
 	
 	GPIOA->MODER &= ~0x00000C00;    // clear pin mode
-  GPIOA->MODER |=  0x00000400;    // set pin to output mode
+  	GPIOA->MODER |=  0x00000400;    // set pin to output mode
 	
-	UART4_init(); 									// Initialize UART4 for ESP-01 data
+	UART4_init(); 				// Initialize UART4 for ESP-01 data
 
 	NVIC_EnableIRQ(USART2_IRQn);		// enable interrupt in NVIC
-	NVIC_EnableIRQ(UART4_IRQn);			// enable interrupt in NVIC
+	NVIC_EnableIRQ(UART4_IRQn);		// enable interrupt in NVIC
 			
-	__enable_irq();									// global enable IRQs
-	ESP_01_init();									// initialize ESP-01 module
+	__enable_irq();				// global enable IRQs
+	ESP_01_init();				// initialize ESP-01 module
 	
-	while(1) {     											// Loop forever
+	while(1) {     				// Loop forever
 		if (strstr((char *)main_buffer, "LED_ON")) {
 			Uart_sendstring(USART2, "Data received\n");
-				GPIOA->BSRR = 0x00000020;   // turn on LED   
+			GPIOA->BSRR = 0x00000020;   // turn on LED   
 		}
 				
 		else if (strstr((char *)main_buffer, "LED_OFF")) {
@@ -66,7 +66,7 @@ int main(void) {
 		}
 							
 		else 
-				Uart_sendstring(USART2, "not received\n");
+			Uart_sendstring(USART2, "not received\n");
 		flush_main_buffer();
 		delayMs(5000);	
 		}
@@ -119,7 +119,7 @@ void send_string_to_USART2(char *str) {
 
 /* initialize UART4 to receive/transmit at 115200 Baud */
 void UART4_init (void) {
-	RCC->AHB1ENR |= 1;          // Enable GPIOA clock
+	RCC->AHB1ENR |= 1;    // Enable GPIOA clock
   RCC->APB1ENR |= 0x80000;    // Enable UART4 clock
 
   /* Configure PA0, PA1 for UART4 TX, RX */
